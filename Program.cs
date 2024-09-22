@@ -23,6 +23,12 @@ public class Program
         AlwaysDownloadUsers = true,
     };
 
+    private static readonly InteractionServiceConfig _interactionServiceConfig = new()
+    {
+        LocalizationManager = new ResxLocalizationManager("InteractionFramework.Resources.CommandLocales", Assembly.GetEntryAssembly(),
+        new CultureInfo("en-US"), new CultureInfo("ru"))
+    };
+
     // App login
     public static async Task Main(string[] args)
     {
@@ -34,6 +40,7 @@ public class Program
         _services = new ServiceCollection()
             .AddSingleton(_configuration)
             .AddSingleton(_socketConfig)
+            .AddSingleton(x => new InteractionService(x.GetRequiredService<DiscordSocketClient>(), _interactionServiceConfig))
             .AddSingleton<DiscordSocketClient>()
             .BuildServiceProvider();
 
