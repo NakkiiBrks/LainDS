@@ -41,6 +41,7 @@ public class Program
             .AddSingleton(_configuration)
             .AddSingleton(_socketConfig)
             .AddSingleton(x => new InteractionService(x.GetRequiredService<DiscordSocketClient>(), _interactionServiceConfig))
+            .AddSingleton<InteractionHandler>()
             .AddSingleton<DiscordSocketClient>()
             .BuildServiceProvider();
 
@@ -48,6 +49,7 @@ public class Program
 
         client.Log += LogAsync;
 
+        // Here we can initialize the service that will register and execute our commands
         await _services.GetRequiredService<InteractionHandler>()
             .InitializeAsync();
 
