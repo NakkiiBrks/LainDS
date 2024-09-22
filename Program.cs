@@ -48,6 +48,9 @@ public class Program
 
         client.Log += LogAsync;
 
+        await _services.GetRequiredService<InteractionHandler>()
+            .InitializeAsync();
+
         var token = Environment.GetEnvironmentVariable("TOKEN");
         await client.LoginAsync(TokenType.Bot, token);
         await client.StartAsync();
