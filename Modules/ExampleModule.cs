@@ -28,4 +28,20 @@ public class Administration : InteractionModuleBase<SocketInteractionContext>
     [SlashCommand("ping", "Pings the bot and returns its latency.")]
     public async Task GreetUserAsync()
         => await RespondAsync(text: $":ping_pong: It took me {Context.Client.Latency}ms to respond to you!", ephemeral: true);
+
+    [SlashCommand("delete_message", "Deletes a DM message")]
+    public async Task DeleteMessageAsync(string messageId)
+    {
+        var message = await Context.Channel.GetMessageAsync(ulong.Parse(messageId));
+
+        if (message != null)
+        {
+            await message.DeleteAsync();
+            await RespondAsync("Message deleted.", ephemeral: true);
+        }
+        else
+        {
+            await RespondAsync("I didnt find the message, or it wasnt sent by me", ephemeral: true);
+        }
+    }
 }
