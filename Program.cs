@@ -23,12 +23,6 @@ public class Program
         AlwaysDownloadUsers = true,
     };
 
-    private static readonly InteractionServiceConfig _interactionServiceConfig = new()
-    {
-        LocalizationManager = new ResxLocalizationManager("InteractionFramework.Resources.CommandLocales", Assembly.GetEntryAssembly(),
-        new CultureInfo("en-US"), new CultureInfo("ru"))
-    };
-
     // App login
     public static async Task Main(string[] args)
     {
@@ -40,22 +34,20 @@ public class Program
         _services = new ServiceCollection()
             .AddSingleton(_configuration)
             .AddSingleton(_socketConfig)
-            .AddSingleton(x => new InteractionService(x.GetRequiredService<DiscordSocketClient>(), _interactionServiceConfig))
+            .AddSingleton(x => new InteractionService(x.GetRequiredService<DiscordSocketClient>()))
             .AddSingleton<InteractionHandler>()
             .AddSingleton<DiscordSocketClient>()
             .BuildServiceProvider();
 
         var client = _services.GetRequiredService<DiscordSocketClient>();
-
+        var token = Environment.GetEnvironmentVariable("TOKEN");
         client.Log += LogAsync;
 
-        // Here we can initialize the service that will register and execute our commands
         await _services.GetRequiredService<InteractionHandler>()
             .InitializeAsync();
-
-        var token = Environment.GetEnvironmentVariable("TOKEN");
         await client.LoginAsync(TokenType.Bot, token);
         await client.StartAsync();
+
 
         await client.SetCustomStatusAsync("Always connected.");
 
