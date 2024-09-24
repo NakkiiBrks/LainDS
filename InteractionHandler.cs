@@ -69,11 +69,12 @@ public class InteractionHandler
             if (!result.IsSuccess)
                 switch (result.Error)
                 {
-                    case InteractionCommandError.UnmetPrecondition:
-                        await context.Interaction.RespondAsync(text: "You dont have enough permissions to execute this command.");
-                        break;
                     default:
                         await context.Interaction.RespondAsync(text: "An error has ocurred when processing this command.");
+                        break;
+
+                    case InteractionCommandError.UnmetPrecondition:
+                        await context.Interaction.RespondAsync(text: "You dont have enough permissions to execute this command.");
                         break;
                 }
         }
@@ -84,25 +85,30 @@ public class InteractionHandler
         }
     }
 
-    private Task HandleInteractionExecute(ICommandInfo commandInfo, IInteractionContext context, IResult result)
+    private async Task HandleInteractionExecute(ICommandInfo commandInfo, IInteractionContext context, IResult result)
     {
         if (!result.IsSuccess)
             switch (result.Error)
             {
-                case InteractionCommandError.UnmetPrecondition:
-                    Console.WriteLine($"Not enough permissions to execute: {commandInfo.Name}");
-                    break;
-                case InteractionCommandError.UnknownCommand:
-                    Console.WriteLine($"Unknow command: {commandInfo.Name}.");
-                    break;
-                case InteractionCommandError.Exception:
-                    Console.WriteLine($"Exception while trying to run command: {commandInfo.Name}.");
-                    break;
                 default:
                     Console.WriteLine($"An error has ocurred when processing: {commandInfo.Name}. Reason: {result.ErrorReason}");
+                    await context.Interaction.RespondAsync(text: $"An error has ocurred when processing: {commandInfo.Name}. Reason: {result.ErrorReason}", ephemeral: true);
+                    break;
+
+                case InteractionCommandError.UnmetPrecondition:
+                    Console.WriteLine("You dont have enough permissions to execute this command.");
+                    await context.Interaction.RespondAsync(text: "You dont have enough permissions to execute this command.", ephemeral: true);
+                    break;
+
+                case InteractionCommandError.UnknownCommand:
+                    Console.WriteLine($"Unknow command: {commandInfo.Name}");
+                    await context.Interaction.RespondAsync(text: $"Unknow command: {commandInfo.Name}", ephemeral: true);
+                    break;
+
+                case InteractionCommandError.Exception:
+                    Console.WriteLine($"Exception while trying to run command: {commandInfo.Name}");
+                    await context.Interaction.RespondAsync(text: $"Exception while trying to run command: {commandInfo.Name}", ephemeral: true);
                     break;
             }
-
-        return Task.CompletedTask;
     }
 }
