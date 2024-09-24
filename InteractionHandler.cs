@@ -15,6 +15,15 @@ public class InteractionHandler
     private readonly IServiceProvider _services;
     private readonly IConfiguration _configuration;
 
+    string banner = @"
+██╗      █████╗ ██╗███╗   ██╗    ██████╗ ███████╗
+██║     ██╔══██╗██║████╗  ██║    ██╔══██╗██╔════╝
+██║     ███████║██║██╔██╗ ██║    ██║  ██║███████╗
+██║     ██╔══██║██║██║╚██╗██║    ██║  ██║╚════██║
+███████╗██║  ██║██║██║ ╚████║    ██████╔╝███████║
+╚══════╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝    ╚═════╝ ╚══════╝                                               
+";
+
     public InteractionHandler(DiscordSocketClient client, InteractionService handler, IServiceProvider services, IConfiguration configuration)
     {
         _client = client;
@@ -43,6 +52,10 @@ public class InteractionHandler
     private async Task ReadyAsync()
     {
         await _handler.RegisterCommandsGloballyAsync();
+        Console.Write(banner);
+        Console.WriteLine("╔═════════════════════╗");
+        Console.WriteLine($"║ Logged as: {_client.CurrentUser.Username}");
+        Console.WriteLine("╚═════════════════════╝");
     }
 
     private async Task HandleInteraction(SocketInteraction interaction)
