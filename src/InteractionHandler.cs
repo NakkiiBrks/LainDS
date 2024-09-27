@@ -70,11 +70,11 @@ public class InteractionHandler
                 switch (result.Error)
                 {
                     default:
-                        await context.Interaction.RespondAsync(text: "An error has ocurred when processing this command.");
+                        await context.Interaction.RespondAsync(text: "An error has ocurred when processing this command.", ephemeral: true);
                         break;
 
                     case InteractionCommandError.UnmetPrecondition:
-                        await context.Interaction.RespondAsync(text: "You dont have enough permissions to execute this command.");
+                        await context.Interaction.RespondAsync(text: "You dont have enough permissions to execute this command.", ephemeral: true);
                         break;
                 }
         }

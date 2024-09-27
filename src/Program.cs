@@ -1,8 +1,13 @@
 ﻿using Discord;
 using Discord.Interactions;
 using Discord.WebSocket;
+using Lavalink4NET;
+using Lavalink4NET.DiscordNet;
+using Lavalink4NET.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 using System;
 using System.Globalization;
 using System.Reflection;
@@ -37,6 +42,9 @@ public class Program
             .AddSingleton(x => new InteractionService(x.GetRequiredService<DiscordSocketClient>()))
             .AddSingleton<InteractionHandler>()
             .AddSingleton<DiscordSocketClient>()
+            .AddSingleton<IAudioService>()
+            .AddLavalink()
+            .AddLogging(x => x.AddConsole().SetMinimumLevel(LogLevel.Trace))
             .BuildServiceProvider();
 
         var client = _services.GetRequiredService<DiscordSocketClient>();

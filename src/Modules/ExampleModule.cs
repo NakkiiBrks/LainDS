@@ -4,7 +4,7 @@ using InteractionFramework.Attributes;
 using System;
 using System.Threading.Tasks;
 
-namespace InteractionFramework.Modules;
+namespace InteractionFramework.src.Modules;
 
 public class Administration : InteractionModuleBase<SocketInteractionContext>
 {
