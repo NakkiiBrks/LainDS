@@ -1,5 +1,4 @@
-﻿#pragma warning disable CS8602
-using Discord.Interactions;
+﻿using Discord.Interactions;
 using Lavalink4NET;
 using Lavalink4NET.DiscordNet;
 using Lavalink4NET.Rest.Entities.Tracks;
@@ -86,7 +85,7 @@ public sealed class MusicModule : InteractionModuleBase<SocketInteractionContext
             return;
         }
 
-        await RespondAsync($"Position: {player.Position?.Position} / {player.CurrentTrack.Duration}.").ConfigureAwait(false);
+        await RespondAsync($"Position: {player.Position?.Position} / {player.CurrentTrack?.Duration}.").ConfigureAwait(false);
     }
 
     [SlashCommand("stop", description: "Stops the current track", runMode: RunMode.Async)]

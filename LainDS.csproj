@@ -10,11 +10,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Discord.Net" Version="3.15.3" />
+    <PackageReference Include="Discord.Net" Version="3.16.0" />
+    <PackageReference Include="Lavalink4NET" Version="4.0.25" />
+    <PackageReference Include="Lavalink4NET.Abstractions" Version="4.0.25" />
+    <PackageReference Include="Lavalink4NET.Artwork" Version="4.0.25" />
     <PackageReference Include="Lavalink4NET.Discord.NET" Version="4.0.25" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
+    <PackageReference Include="Lavalink4NET.InactivityTracking" Version="4.0.25" />
+    <PackageReference Include="Lavalink4NET.Integrations.Lavasearch" Version="4.0.25" />
+    <PackageReference Include="Lavalink4NET.Protocol" Version="4.0.25" />
+    <PackageReference Include="Lavalink4NET.Rest" Version="4.0.25" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.2" />
     <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />

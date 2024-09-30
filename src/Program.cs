@@ -67,7 +67,8 @@ public class Program
             .InitializeAsync();
         await client.LoginAsync(TokenType.Bot, token);
         await client.StartAsync();
-
+        
+        // Custom presence
         if (!string.IsNullOrWhiteSpace(appSettings?.StatusMessage))
         {
             await client.SetCustomStatusAsync(appSettings.StatusMessage);
