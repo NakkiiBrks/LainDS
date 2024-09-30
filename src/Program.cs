@@ -20,7 +20,6 @@ public class Program
 {
     private static IConfiguration _configuration;
     private static IServiceProvider _services;
-    private static IServiceCollection _servicesCollection;
 
     // Intents config
     private static readonly DiscordSocketConfig _socketConfig = new()
@@ -45,6 +44,12 @@ public class Program
             .AddSingleton<DiscordSocketClient>()
             .AddLavalink()
             .AddLogging(x => x.AddConsole().SetMinimumLevel(LogLevel.Trace))
+            .ConfigureLavalink(config =>
+            {
+                config.Passphrase = "notadefaultpass";
+                config.ReadyTimeout = TimeSpan.FromSeconds(3);
+                config.ResumptionOptions = new LavalinkSessionResumptionOptions(TimeSpan.FromSeconds(60));
+            })
             .BuildServiceProvider();
 
         var client = _services.GetRequiredService<DiscordSocketClient>();
