@@ -28,12 +28,18 @@ public class Program
         AlwaysDownloadUsers = true,
     };
 
+    public class AppSettings
+    {
+        public string StatusMessage { get; set; }
+    }
+
     // App login
     public static async Task Main(string[] args)
     {
         _configuration = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
             .AddEnvironmentVariables(prefix: "?")
-            .AddJsonFile("appsettings.json", optional: true)
+            .AddJsonFile("src/appsettings.json", true, true)
             .Build();
 
         _services = new ServiceCollection()
@@ -52,6 +58,7 @@ public class Program
             })
             .BuildServiceProvider();
 
+        var appSettings = _configuration.GetSection("AppSettings").Get<AppSettings>();
         var client = _services.GetRequiredService<DiscordSocketClient>();
         var token = Environment.GetEnvironmentVariable("TOKEN");
         client.Log += LogAsync;
@@ -61,7 +68,10 @@ public class Program
         await client.LoginAsync(TokenType.Bot, token);
         await client.StartAsync();
 
-        await client.SetCustomStatusAsync("Im online!");
+        if (!string.IsNullOrWhiteSpace(appSettings?.StatusMessage))
+        {
+            await client.SetCustomStatusAsync(appSettings.StatusMessage);
+        }
 
         await Task.Delay(Timeout.Infinite);
     }
