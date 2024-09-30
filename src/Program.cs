@@ -20,6 +20,7 @@ public class Program
 {
     private static IConfiguration _configuration;
     private static IServiceProvider _services;
+    private static IServiceCollection _servicesCollection;
 
     // Intents config
     private static readonly DiscordSocketConfig _socketConfig = new()
@@ -42,7 +43,6 @@ public class Program
             .AddSingleton(x => new InteractionService(x.GetRequiredService<DiscordSocketClient>()))
             .AddSingleton<InteractionHandler>()
             .AddSingleton<DiscordSocketClient>()
-            .AddSingleton<IAudioService>()
             .AddLavalink()
             .AddLogging(x => x.AddConsole().SetMinimumLevel(LogLevel.Trace))
             .BuildServiceProvider();
@@ -56,8 +56,7 @@ public class Program
         await client.LoginAsync(TokenType.Bot, token);
         await client.StartAsync();
 
-
-        await client.SetCustomStatusAsync("Always connected.");
+        await client.SetCustomStatusAsync("Im online!");
 
         await Task.Delay(Timeout.Infinite);
     }
