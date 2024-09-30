@@ -48,7 +48,7 @@ public sealed class MusicModule : InteractionModuleBase<SocketInteractionContext
         }
 
         var track = await _audioService.Tracks
-            .LoadTrackAsync(query, TrackSearchMode.YouTube)
+            .LoadTrackAsync(query, TrackSearchMode.SoundCloud)
             .ConfigureAwait(false);
 
         if (track is null)

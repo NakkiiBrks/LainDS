@@ -4,6 +4,7 @@ using Discord.WebSocket;
 using Lavalink4NET;
 using Lavalink4NET.DiscordNet;
 using Lavalink4NET.Extensions;
+using Lavalink4NET.InactivityTracking;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -58,6 +59,10 @@ public class Program
             })
             .BuildServiceProvider();
 
+        // Lavalink
+        var audioService = _services.GetRequiredService<IAudioService>();
+        var inactivityTrackingService = _services.GetService<IInactivityTrackingService>();
+
         var appSettings = _configuration.GetSection("AppSettings").Get<AppSettings>();
         var client = _services.GetRequiredService<DiscordSocketClient>();
         var token = Environment.GetEnvironmentVariable("TOKEN");
@@ -67,6 +72,7 @@ public class Program
             .InitializeAsync();
         await client.LoginAsync(TokenType.Bot, token);
         await client.StartAsync();
+        await audioService.StartAsync();
         
         // Custom presence
         if (!string.IsNullOrWhiteSpace(appSettings?.StatusMessage))
