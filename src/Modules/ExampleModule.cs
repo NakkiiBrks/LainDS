@@ -1,10 +1,9 @@
 ﻿using Discord;
 using Discord.Interactions;
-using InteractionFramework.Attributes;
 using System;
 using System.Threading.Tasks;
 
-namespace InteractionFramework.src.Modules;
+namespace InteractionFramework.Modules;
 
 public class Administration : InteractionModuleBase<SocketInteractionContext>
 {
