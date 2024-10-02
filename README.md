@@ -6,9 +6,9 @@
 - :large_orange_diamond: Orange: Being made
 - :red_square: Red: Backlog
   
-| Feature                 | Progress                |
-| ----------------------- | ----------------------- |
-| Music Player            | :green_circle:          |
-| Audio soundboard upload | :red_square:            |
-| Sticker uploader        | :red_square:            |
-| LaTeX Expressions       | :red_square:            |
+| Feature                   | Progress                |
+| ------------------------- | ----------------------- |
+| Basic music player        | :green_circle:          |
+| Audio soundboard uploader | :red_square:            |
+| Sticker uploader          | :red_square:            |
+| LaTeX Expressions         | :red_square:            |
