@@ -73,7 +73,7 @@ public class Program
         await client.LoginAsync(TokenType.Bot, token);
         await client.StartAsync();
         await audioService.StartAsync();
-        
+
         // Custom presence
         if (!string.IsNullOrWhiteSpace(appSettings?.StatusMessage))
         {

@@ -28,7 +28,7 @@ public class Administration : InteractionModuleBase<SocketInteractionContext>
     public async Task GreetUserAsync()
         => await RespondAsync(text: $":ping_pong: It took me {Context.Client.Latency}ms to respond to you!", ephemeral: true);
 
-    [SlashCommand("delete_message", "Deletes a DM message")]
+    [SlashCommand("delete_message", "Deletes a message")]
     public async Task DeleteMessageAsync(string messageId)
     {
         var message = await Context.Channel.GetMessageAsync(ulong.Parse(messageId));
@@ -40,7 +40,7 @@ public class Administration : InteractionModuleBase<SocketInteractionContext>
         }
         else
         {
-            await RespondAsync("I didnt find the message, or it wasnt sent by me", ephemeral: true);
+            await RespondAsync("I didnt find the message, or I didnt have the permission to delete it!", ephemeral: true);
         }
     }
 }

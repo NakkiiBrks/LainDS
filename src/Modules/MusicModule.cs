@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace InteractionFramework.src.Modules;
 
+[Discord.Interactions.Group("music", "Play Music!")]
 public sealed class MusicModule : InteractionModuleBase<SocketInteractionContext>
 {
     private readonly IAudioService _audioService;
@@ -19,20 +20,6 @@ public sealed class MusicModule : InteractionModuleBase<SocketInteractionContext
         ArgumentNullException.ThrowIfNull(audioService);
 
         _audioService = audioService;
-    }
-
-    [SlashCommand("disconnect", "Disconnects from the current voice channel connected to", runMode: RunMode.Async)]
-    public async Task Disconnect()
-    {
-        var player = await GetPlayerAsync().ConfigureAwait(false);
-
-        if (player is null)
-        {
-            return;
-        }
-
-        await player.DisconnectAsync().ConfigureAwait(false);
-        await RespondAsync("Disconnected.").ConfigureAwait(false);
     }
 
     [SlashCommand("play", description: "Plays music", runMode: RunMode.Async)]
@@ -48,7 +35,7 @@ public sealed class MusicModule : InteractionModuleBase<SocketInteractionContext
         }
 
         var track = await _audioService.Tracks
-            .LoadTrackAsync(query, TrackSearchMode.SoundCloud)
+            .LoadTrackAsync(query, TrackSearchMode.YouTube)
             .ConfigureAwait(false);
 
         if (track is null)
@@ -67,6 +54,20 @@ public sealed class MusicModule : InteractionModuleBase<SocketInteractionContext
         {
             await FollowupAsync($"🔈 Added to queue: {track.Uri}").ConfigureAwait(false);
         }
+    }
+
+    [SlashCommand("disconnect", "Disconnects from the current voice channel connected to", runMode: RunMode.Async)]
+    public async Task Disconnect()
+    {
+        var player = await GetPlayerAsync().ConfigureAwait(false);
+
+        if (player is null)
+        {
+            return;
+        }
+
+        await player.DisconnectAsync().ConfigureAwait(false);
+        await RespondAsync("Disconnected.").ConfigureAwait(false);
     }
 
     [SlashCommand("position", description: "Shows the track position", runMode: RunMode.Async)]
@@ -108,12 +109,12 @@ public sealed class MusicModule : InteractionModuleBase<SocketInteractionContext
         await RespondAsync("Stopped playing.").ConfigureAwait(false);
     }
 
-    [SlashCommand("volume", description: "Sets the player volume (0 - 1000%)", runMode: RunMode.Async)]
+    [SlashCommand("volume", description: "Sets the player volume (0 - 100%)", runMode: RunMode.Async)]
     public async Task Volume(int volume = 100)
     {
-        if (volume is > 1000 or < 0)
+        if (volume is > 100 or < 0)
         {
-            await RespondAsync("Volume out of range: 0% - 1000%!").ConfigureAwait(false);
+            await RespondAsync("Volume out of range: 0% - 100%!").ConfigureAwait(false);
             return;
         }
 
