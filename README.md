@@ -2,9 +2,9 @@
 
 ### `⚙️ Features: `
 
-- :green_circle: Green: Done!
-- :large_orange_diamond: Orange: Being made
-- :red_square: Red: Backlog
+- `🟢 Green:` Done!
+- `🟠 Orange:` Being made
+- `🔴 Red:` Backlog
   
 | Feature                   | Progress                |
 | ------------------------- | ----------------------- |
