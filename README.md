@@ -8,7 +8,7 @@
   
 | Feature                 | Progress                |
 | ----------------------- | ----------------------- |
-| Music Player            | :large_orange_diamond:  |
+| Music Player            | :green_circle:          |
 | Audio soundboard upload | :red_square:            |
 | Sticker uploader        | :red_square:            |
 | LaTeX Expressions       | :red_square:            |
