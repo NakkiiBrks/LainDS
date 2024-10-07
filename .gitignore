@@ -4,8 +4,11 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
 #Properties & VSCode
-/Properties/
+Properties/
 .VSCode
+
+src/logs/
+.env
 
 # User-specific files
 *.rsuser
