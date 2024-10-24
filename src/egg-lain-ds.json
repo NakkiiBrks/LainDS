@@ -1,0 +1,52 @@
+{
+    "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY PTERODACTYL PANEL - PTERODACTYL.IO",
+    "meta": {
+        "version": "PTDL_v2",
+        "update_url": null
+    },
+    "exported_at": "2024-10-24T16:51:51-03:00",
+    "name": "LainDS",
+    "author": "nakkii800br@gmail.com",
+    "description": "A Discord bot",
+    "features": null,
+    "docker_images": {
+        "ghcr.io\/parkervcp\/yolks:ubuntu": "ghcr.io\/parkervcp\/yolks:ubuntu"
+    },
+    "file_denylist": [],
+    "startup": ".\/LainDS",
+    "config": {
+        "files": "{}",
+        "startup": "{\r\n    \"done\": \"Finished Loading\"\r\n}",
+        "logs": "{}",
+        "stop": "^C"
+    },
+    "scripts": {
+        "installation": {
+            "script": "#!bin\/bash\r\n\r\napt update && apt install -y jq curl unzip\r\n\r\nINSTALL_DIR=\"\/mnt\/server\"\r\nLATEST_JSON=$(curl --silent \"https:\/\/api.github.com\/repos\/NakkiiBrks\/LainDS\/releases\/latest\")\r\nMATCH=linux-arm64.zip\r\nDOWNLOAD_URL=$(echo ${LATEST_JSON} | jq .assets | jq -r .[].browser_download_url | grep -i ${MATCH})\r\n\r\ncd $INSTALL_DIR\r\n\r\necho -e \"Downloading package from ${DOWNLOAD_URL}\"\r\ncurl -SLo release.zip $DOWNLOAD_URL\r\n\r\nunzip release.zip -d $INSTALL_DIR\r\n\r\nchmod +x LainDS\r\n\r\nrm release.zip\r\n\r\necho \"Install complete!\"",
+            "container": "ghcr.io\/parkervcp\/installers:debian",
+            "entrypoint": "bash"
+        }
+    },
+    "variables": [
+        {
+            "name": "Discord Bot Token",
+            "description": "The token for your Discord bot.",
+            "env_variable": "TOKEN",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string",
+            "field_type": "text"
+        },
+        {
+            "name": "Bot Default Status",
+            "description": "[ Accepted Values: ONLINE IDLE DND INVISIBLE ] Will modify the default status of bot.",
+            "env_variable": "BOT_STATUS",
+            "default_value": "ONLINE",
+            "user_viewable": false,
+            "user_editable": false,
+            "rules": "required|string|in:ONLINE,IDLE,DND,INVISIBLE",
+            "field_type": "text"
+        }
+    ]
+}
