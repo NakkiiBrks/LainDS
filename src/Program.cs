@@ -34,6 +34,12 @@ public class Program
         public string StatusMessage { get; set; }
     }
 
+    public class LavalinkSettings
+    {
+        public string LV_BaseAddress { get; set; }
+        public string LV_Passphrase { get; set; }
+    }
+
     // App login
     public static async Task Main(string[] args)
     {
@@ -42,6 +48,8 @@ public class Program
             .AddEnvironmentVariables(prefix: "?")
             .AddJsonFile("src/appsettings.json", true, true)
             .Build();
+
+        var lavaLinkSettings = _configuration.GetSection("Lavalink").Get<LavalinkSettings>();
 
         _services = new ServiceCollection()
             .AddSingleton(_configuration)
@@ -53,7 +61,8 @@ public class Program
             .AddLogging(x => x.AddConsole().SetMinimumLevel(LogLevel.Trace))
             .ConfigureLavalink(config =>
             {
-                config.Passphrase = "notadefaultpass";
+                config.BaseAddress = new Uri(lavaLinkSettings?.LV_BaseAddress ?? "http://localhost:2333");
+                config.Passphrase = lavaLinkSettings?.LV_Passphrase ?? "notadefaultpass";
                 config.ReadyTimeout = TimeSpan.FromSeconds(3);
                 config.ResumptionOptions = new LavalinkSessionResumptionOptions(TimeSpan.FromSeconds(60));
             })
