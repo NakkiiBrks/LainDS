@@ -7,6 +7,19 @@ plugins:
 #  name: # Name of the plugin
 #    some_key: some_value # Some key-value pair for the plugin
 #    another_key: another_value
+    youtube:
+        enabled: true # Whether this source can be used.
+        pot:
+            token: "MnQhQRasaqespiF5KsnjAxAJyYxj401ydO_juJROQz6OxO5pLsmWkGM4QBIF27TDSTtyfj4r7SVDXL3uQPkkb8uWAyVZ-ppasL0Pklpszhctms16qufVTHw5Yj1h9_fLNmrMeC_ESZRfRdMTE2N2GUUPVvWXyA=="
+            visitorData: "CgtaelZCZndORThNWSiQwOe4BjIKCgJCUhIEGgAgDw%3D%3D"
+        allowSearch: true # Whether "ytsearch:" and "ytmsearch:" can be used.
+        allowDirectVideoIds: true # Whether just video IDs can match. If false, only complete URLs will be loaded.
+        allowDirectPlaylistIds: true # Whether just playlist IDs can match. If false, only complete URLs will be loaded.
+        # The clients to use for track loading. See below for a list of valid clients.
+        # Clients are queried in the order they are given (so the first client is queried first and so on...)
+        clients:
+            - WEB
+            - WEBEMBEDDED
 lavalink:
   plugins:
 #    - dependency: "com.github.example:example-plugin:1.0.0" # required, the coordinates of your plugin
@@ -18,29 +31,17 @@ lavalink:
     # Replace VERSION with the current version as shown by the Releases tab or a long commit hash for snapshots.
     #- dependency: "dev.lavalink.youtube:youtube-plugin:1.8.3"
     #  repository: "https://maven.lavalink.dev/releases" # use https://maven.lavalink.dev/snapshots if you want to use a snapshot version.
-    youtube:
-    enabled: true # Whether this source can be used.
-    allowSearch: true # Whether "ytsearch:" and "ytmsearch:" can be used.
-    allowDirectVideoIds: true # Whether just video IDs can match. If false, only complete URLs will be loaded.
-    allowDirectPlaylistIds: true # Whether just playlist IDs can match. If false, only complete URLs will be loaded.
-    # The clients to use for track loading. See below for a list of valid clients.
-    # Clients are queried in the order they are given (so the first client is queried first and so on...)
-    clients:
-      - MUSIC
-      - ANDROID_TESTSUITE
-      - WEB
-      - TVHTML5EMBEDDED
 
   server:
     password: "notadefaultpass"
     sources:
       # The default Youtube source is now deprecated and won't receive further updates. Please use https://github.com/lavalink-devs/youtube-source#plugin instead.
       youtube: false
-      bandcamp: true
+      bandcamp: false
       soundcloud: true
-      twitch: true
-      vimeo: true
-      nico: true
+      twitch: false
+      vimeo: false
+      nico: false
       http: true # warning: keeping HTTP enabled without a proxy configured could expose your server's IP address.
       local: false
     filters: # All filters are enabled by default
