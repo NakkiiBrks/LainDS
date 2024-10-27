@@ -54,6 +54,7 @@ public class InteractionHandler
         await _handler.RegisterCommandsGloballyAsync();
         Console.Write(banner);
         Console.WriteLine("╔═════════════════════╗");
+        Console.WriteLine("║ Server started!");
         Console.WriteLine($"║ Logged as: {_client.CurrentUser.Username}");
         Console.WriteLine("╚═════════════════════╝");
     }

@@ -89,7 +89,7 @@ public class Program
             await client.SetCustomStatusAsync(appSettings.StatusMessage);
         }
 
-        await Task.Delay(Timeout.Infinite);
+        await Task.Delay(Timeout.Infinite).ConfigureAwait(false);
     }
 
     // Logs

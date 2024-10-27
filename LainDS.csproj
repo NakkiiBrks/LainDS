@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <Title>LainDS</Title>
+    <ApplicationIcon>lain.ico</ApplicationIcon>
     <TargetFramework>net8.0</TargetFramework>
     <OutputType>Exe</OutputType>
     <Platforms>AnyCPU;ARM64</Platforms>
